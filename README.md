@@ -16,7 +16,7 @@ API Node.js para registro e autenticação de usuários, desenvolvida como proje
 1. Clone o repositório
 2. Instale as dependências: `npm install`
 3. Configure o banco de dados no arquivo `.env`
-4. Execute: `npm run dev`
+4. Execute: `nodemon server.js`
 
 ## Contribuições
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull requests.
