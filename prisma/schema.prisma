@@ -1,0 +1,30 @@
+// Define a fonte de dados (seu banco de dados)
+datasource db {
+  provider = "mysql" // Tipo do banco (poderia ser postgresql, sqlite, etc.)
+  url      = env("DATABASE_URL") // Pega a URL de conexão do arquivo .env
+}
+
+// Configura como o cliente Prisma será gerado
+generator client {
+  provider = "prisma-client-js" // Gera um cliente JavaScript/TypeScript
+}
+
+// Modelo 'User' (tabela no banco de dados)
+model User {
+  id        Int      @id @default(autoincrement()) // Chave primária com autoincremento
+  name      String // Campo obrigatório (sem '?' significa NOT NULL)
+  email     String   @unique // Email único no banco
+  password  String // Senha (armazene sempre hasheada!)
+  createdAt DateTime @default(now()) // Data de criação automática
+  updatedAt DateTime @updatedAt // Data de atualização automática
+  posts     Post[] // Relacionamento 1-N com 'Post' (um usuário tem muitos posts)
+}
+
+// Modelo 'Post'
+model Post {
+  id       Int     @id @default(autoincrement())
+  title    String
+  content  String? // '?' indica que pode ser NULL
+  author   User    @relation(fields: [authorId], references: [id]) // Relacionamento
+  authorId Int // Chave estrangeira para 'User'
+}
